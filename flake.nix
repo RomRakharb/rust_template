@@ -1,30 +1,33 @@
 {
+  description = "Simple rust dev environment";
+
   inputs = {
-    naersk.url = "github:nix-community/naersk/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, utils, naersk }:
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        naersk-lib = pkgs.callPackage naersk { };
-      in
-      {
-        defaultPackage = naersk-lib.buildPackage ./.;
-        devShell = with pkgs; mkShell {
-          buildInputs = [
-            cargo
-            rustc
-            rustfmt
-            pre-commit
-            rustPackages.clippy
-            rust-analyzer
-            bacon
-          ];
-          RUST_SRC_PATH = rustPlatform.rustLibSrc;
-        };
-      }
-    );
+  outputs = { self, nixpkgs }:
+  let
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  in
+  {
+
+    devShells.x86_64-linux.default = pkgs.mkShell {
+
+      shellHook = ''
+      '';
+
+      packages = with pkgs; [
+        rustc
+        cargo
+        clippy
+        rustfmt
+        rust-analyzer
+
+        helix
+        bacon
+      ];
+
+    };
+
+  };
 }
