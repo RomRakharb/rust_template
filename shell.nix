@@ -11,8 +11,13 @@ pkgs.mkShell {
   ];
 
   shellHook = ''
-    echo "Welcome to Rust Development Environment"
+    clear
+    echo " -------------------------------------------"
+    echo " | Welcome to Rust Development Environment |"
+    echo " -------------------------------------------"
+    echo ""
     rustc --version
     cargo --version
+    echo ""
   '';
 }
