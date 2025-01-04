@@ -12,22 +12,14 @@
   {
     devShells.x86_64-linux.default = pkgs.mkShell {
       buildInputs = with pkgs; [
-        rustc
-        cargo
-        clippy
-        rustfmt
-        rust-analyzer
-
-        bacon
+        rustup
+        helix
       ];
 
 
       shellHook = ''
-        echo -e '[language-server.rust-analyzer.config]\ncheck.command = "clippy"' > ~/.config/helix/languages.toml
         clear
         echo "Rust Development Environment"
-        rustc --version
-        cargo --version
       '';
     };
   };
