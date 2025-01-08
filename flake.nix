@@ -11,15 +11,31 @@
   in
   {
     devShells.x86_64-linux.default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-        rustup
+      packages = with pkgs; [
+        rustc
+        cargo
+        rust-analyzer
+        rustfmt   
+        clippy
+
+        bacon
         helix
+        nil
+        toybox
       ];
 
+      installPhase = ''
+      '';
 
       shellHook = ''
         clear
-        echo "Rust Development Environment"
+        echo " -------------------------------------------"
+        echo " | Welcome to Rust Development Environment |"
+        echo " -------------------------------------------"
+        echo ""
+        rustc --version
+        cargo --version
+        echo ""
       '';
     };
   };
