@@ -21,7 +21,10 @@
         bacon
         helix
         nil
+
+        git
         toybox
+        openssh
       ];
 
       installPhase = ''
